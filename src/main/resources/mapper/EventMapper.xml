@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bupt.recommender.mapper.EventMapper">
+    <!-- 自定义返回结果集 -->
+    <resultMap id="eventMap" type="EventPO">
+        <id property="id" column="id" javaType="int"></id>
+        <result property="title" column="title" javaType="String"></result>
+        <result property="content" column="content" javaType="String"></result>
+    </resultMap>
+
+    <select id="getPopularEvents" resultMap="eventMap">
+        select id, title, content from event limit 5
+    </select>
+
+</mapper>
