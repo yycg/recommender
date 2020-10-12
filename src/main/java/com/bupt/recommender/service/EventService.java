@@ -1,9 +1,13 @@
 package com.bupt.recommender.service;
 
-import com.bupt.recommender.entity.EventPO;
+import com.bupt.recommender.dto.EventDTO;
 
 import java.util.List;
 
 public interface EventService {
-    List<EventPO> getPopularEvents() throws Exception;
+    List<EventDTO> getPopularEvents() throws Exception;
+
+    List<EventDTO> getEventsByCategory(String category, String subcategory, int start, int count) throws Exception;
+
+    int countEventsByCategory(String category, String subcategory) throws Exception;
 }

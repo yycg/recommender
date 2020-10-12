@@ -3,13 +3,55 @@
 <mapper namespace="com.bupt.recommender.mapper.EventMapper">
     <!-- 自定义返回结果集 -->
     <resultMap id="eventMap" type="EventPO">
-        <id property="id" column="id" javaType="int"></id>
-        <result property="title" column="title" javaType="String"></result>
-        <result property="content" column="content" javaType="String"></result>
+        <id property="id" column="id"></id>
+        <result property="ownerId" column="owner_id"></result>
+        <result property="title" column="title"></result>
+        <result property="content" column="content"></result>
+        <result property="category" column="category"></result>
+        <result property="categoryName" column="category_name"></result>
+        <result property="beginTime" column="begin_time"></result>
+        <result property="endTime" column="end_time"></result>
+        <result property="timeStr" column="time_str"></result>
+        <result property="locId" column="loc_id"></result>
+        <result property="locName" column="loc_name"></result>
+        <result property="address" column="address"></result>
+        <result property="geo" column="geo"></result>
+        <result property="priceRange" column="price_range"></result>
+        <result property="feeStr" column="fee_str"></result>
+        <result property="hasTicket" column="has_ticket"></result>
+        <result property="album" column="album"></result>
+        <result property="canInvite" column="can_invite"></result>
+        <result property="subcategoryName" column="subcategory_name"></result>
+        <result property="label" column="label"></result>
+        <result property="tags" column="tags"></result>
+        <result property="alt" column="alt"></result>
+        <result property="uri" column="uri"></result>
+        <result property="url" column="url"></result>
+        <result property="adaptUrl" column="adaptUrl"></result>
+        <result property="image" column="image"></result>
+        <result property="imageHlarge" column="imageHlarge"></result>
+        <result property="imageLmobile" column="imageLmobile"></result>
+        <result property="participantCount" column="participantCount"></result>
+        <result property="wisherCount" column="wisherCount"></result>
     </resultMap>
 
     <select id="getPopularEvents" resultMap="eventMap">
-        select id, title, content from event limit 5
+        select * from event order by participant_count limit 100
+    </select>
+
+    <select id="getEventsByCategory" resultMap="eventMap">
+        select * from event where category_name = #{category}
+        <if test="subcategory != null">
+            and subcategory_name = #{subcategory}
+        </if>
+        limit #{count} offset #{start}
+    </select>
+
+    <select id="countEventsByCategory" resultType="int">
+        select count(1) from event where category_name = #{category}
+        <if test="subcategory != null">
+            and subcategory_name = #{subcategory}
+        </if>
     </select>
 
 </mapper>

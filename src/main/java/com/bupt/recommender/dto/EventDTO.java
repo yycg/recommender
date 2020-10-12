@@ -1,11 +1,11 @@
-package com.bupt.recommender.entity;
+package com.bupt.recommender.dto;
 
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class EventPO {
+public class EventDTO {
     private Integer id;
     private Integer ownerId;
     private String title;
@@ -19,6 +19,8 @@ public class EventPO {
     private String locName;
     private String address;
     private String geo;
+    private String longitude;
+    private String latitude;
     private String priceRange;
     private String feeStr;
     private Byte hasTicket;
