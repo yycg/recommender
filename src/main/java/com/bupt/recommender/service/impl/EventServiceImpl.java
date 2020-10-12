@@ -28,4 +28,8 @@ public class EventServiceImpl implements EventService {
     public int countEventsByCategory(String category, String subcategory) throws Exception {
         return eventMapper.countEventsByCategory(category, subcategory);
     }
+
+    public EventDTO getEventById(int id) throws Exception {
+        return EventConverter.convertEventPO2DTO(eventMapper.getEventById(id));
+    }
 }

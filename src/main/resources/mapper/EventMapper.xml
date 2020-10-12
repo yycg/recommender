@@ -54,4 +54,8 @@
         </if>
     </select>
 
+    <select id="getEventById" resultMap="eventMap">
+        select * from event where id = #{id}
+    </select>
+
 </mapper>

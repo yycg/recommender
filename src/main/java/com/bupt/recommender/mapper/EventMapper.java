@@ -13,4 +13,6 @@ public interface EventMapper {
 
     int countEventsByCategory(@Param("category") String category, @Param("subcategory") String subcategory)
             throws Exception;
+
+    EventPO getEventById(@Param("id") int id) throws Exception;
 }
