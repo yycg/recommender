@@ -27,12 +27,12 @@
         <result property="alt" column="alt"></result>
         <result property="uri" column="uri"></result>
         <result property="url" column="url"></result>
-        <result property="adaptUrl" column="adaptUrl"></result>
+        <result property="adaptUrl" column="adapt_url"></result>
         <result property="image" column="image"></result>
-        <result property="imageHlarge" column="imageHlarge"></result>
-        <result property="imageLmobile" column="imageLmobile"></result>
-        <result property="participantCount" column="participantCount"></result>
-        <result property="wisherCount" column="wisherCount"></result>
+        <result property="imageHlarge" column="image_hlarge"></result>
+        <result property="imageLmobile" column="image_lmobile"></result>
+        <result property="participantCount" column="participant_count"></result>
+        <result property="wisherCount" column="wisher_count"></result>
     </resultMap>
 
     <select id="getPopularEvents" resultMap="eventMap">
