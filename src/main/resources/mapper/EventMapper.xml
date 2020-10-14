@@ -36,7 +36,7 @@
     </resultMap>
 
     <select id="getPopularEvents" resultMap="eventMap">
-        select * from event order by participant_count limit 100
+        select * from event order by participant_count desc limit 100
     </select>
 
     <select id="getEventsByCategory" resultMap="eventMap">
@@ -44,6 +44,7 @@
         <if test="subcategory != null">
             and subcategory_name = #{subcategory}
         </if>
+        order by begin_time desc
         limit #{count} offset #{start}
     </select>
 

@@ -38,4 +38,6 @@ public class EventDTO {
     private String imageLmobile;
     private String participantCount;
     private String wisherCount;
+
+    private String ownerName;
 }

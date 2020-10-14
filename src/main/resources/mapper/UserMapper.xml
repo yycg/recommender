@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bupt.recommender.mapper.UserMapper">
+  <!-- 自定义返回结果集 -->
+  <resultMap id="userMap" type="UserPO">
+    <id property="id" column="id"></id>
+    <result property="uid" column="uid"></result>
+    <result property="name" column="name"></result>
+    <result property="type" column="type"></result>
+    <result property="avatar" column="avatar"></result>
+    <result property="largeAvatar" column="large_avatar"></result>
+    <result property="alt" column="alt"></result>
+    <result property="locId" column="loc_id"></result>
+    <result property="locName" column="loc_name"></result>
+    <result property="desc" column="desc"></result>
+    <result property="created" column="created"></result>
+    <result property="isSuicide" column="is_suicide"></result>
+    <result property="isBanned" column="is_banned"></result>
+  </resultMap>
+
+  <select id="getUserById" resultMap="userMap">
+    select * from user where id = #{id}
+  </select>
+
+</mapper>
