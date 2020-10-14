@@ -33,9 +33,8 @@ public class EventController {
             return new ResultBean<>(eventsVO);
         } catch (Exception e) {
             logger.warn("getPopularEvents exception", e);
+            return new ResultBean<>(e);
         }
-
-        return null;
     }
 
     @RequestMapping(path="/event/category", method=RequestMethod.GET)
@@ -58,9 +57,8 @@ public class EventController {
         } catch (Exception e) {
             logger.warn("getEventsByCategory exception: category {}, subcategory {}, start {}, count {}",
                     category, subcategory, start, count, e);
+            return new ResultBean<>(e);
         }
-
-        return null;
     }
 
     @RequestMapping(path="/event/{id}", method= RequestMethod.GET)
@@ -72,7 +70,7 @@ public class EventController {
             return new ResultBean<>(eventVO);
         } catch (Exception e) {
             logger.warn("getEventDetail exception: id {}", id, e);
+            return new ResultBean<>(e);
         }
-        return null;
     }
 }

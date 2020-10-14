@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bupt.recommender.mapper.LawMapper">
+  <!-- 自定义返回结果集 -->
+  <resultMap id="lawSpecialtyMap" type="LawSpecialtyPO">
+    <id property="id" column="ID"></id>
+    <result property="name" column="NAME"></result>
+    <result property="state" column="STATE"></result>
+    <result property="specialtyCode" column="SPECIALTY_CODE"></result>
+    <result property="createTime" column="CREATETIME"></result>
+    <result property="orgCode" column="ORGCODE"></result>
+    <result property="type" column="TYPE"></result>
+    <result property="isXZXK" column="IS_XZXK"></result>
+  </resultMap>
+
+  <resultMap id="lawTypeMap" type="LawTypePO">
+    <id property="id" column="id"></id>
+    <result property="level" column="LEVELS"></result>
+    <result property="name" column="NAME"></result>
+    <result property="parentId" column="PARENT_ID"></result>
+    <result property="isBottom" column="ISBOTTOM"></result>
+    <result property="isHistory" column="IS_HISTORY"></result>
+    <result property="nameId" column="NAME_ID"></result>
+    <result property="sortId" column="SORT_ID"></result>
+    <result property="orgCode" column="ORG_CODE"></result>
+    <result property="wordType" column="WORD_TYPE"></result>
+  </resultMap>
+
+  <resultMap id="lawMap" type="LawPO">
+    <id property="id" column="ID"></id>
+    <result property="checkContent" column="CHECK_CONTENT"></result>
+    <result property="illegalActivities" column="ILLEGAL_ACTIVITIES"></result>
+    <result property="superviseMessage" column="SUPERVISE_MESSAGE"></result>
+    <result property="accord" column="ACCORD"></result>
+    <result property="disposalAccord" column="DISPOSAL_ACCORD"></result>
+    <result property="disposalContent" column="DISPOSAL_CONTENT"></result>
+    <result property="reportIllegalActivities" column="REPORT_ILLEGAL_ACTIVITIES"></result>
+    <result property="operateTime" column="OPERATE_TIME"></result>
+    <result property="userId" column="USER_ID"></result>
+    <result property="isHistory" column="IS_HISTORY"></result>
+    <result property="typeId" column="TYPE_ID"></result>
+    <result property="nameId" column="NAME_ID"></result>
+    <result property="code" column="CODE"></result>
+    <result property="sortId" column="SORT_ID"></result>
+    <result property="orgCode" column="ORG_CODE"></result>
+    <result property="wordType" column="WORD_TYPE"></result>
+    <result property="supCompType" column="SUP_COMP_TYPE"></result>
+    <result property="infcontId" column="INFCONT_ID"></result>
+    <result property="checkCode" column="CHECK_CODE"></result>
+    <result property="countryWordCode" column="COUNTRY_WORDCODE"></result>
+  </resultMap>
+
+  <select id="getLawSpecialties" resultMap="lawSpecialtyMap">
+    -- 专业类别 规范用语
+    SELECT * FROM t_standard_word_name_tf
+    WHERE IS_XZXK = '0' -- IS_XZXK 0 监督与处罚
+    AND STATE = '0' -- STATE 0 启用
+    AND TYPE = '0' -- TYPE 0 国家级
+    ORDER BY SPECIALITY_CODE -- 按专业类别排序
+  </select>
+
+  <select id="getLawTypes" resultMap="lawTypeMap">
+    -- 规范用语分类
+    SELECT * FROM t_standard_word_type_tf
+    WHERE IS_HISTORY = '0' -- 是否为历史 0正常 1历史
+    AND WORD_TYPE = '1' -- 规范用语类别  1监督与处罚 0行政许可
+    AND NAME_ID = #{specialtyId} -- name表ID 对应专业类别
+    AND PARENT_ID = #{parentId} -- name表ID 对应专业类别
+    AND ORG_CODE = '40083437-0' --  国家级规范用语
+    ORDER BY LEVELS, SORT_ID -- 排序
+  </select>
+
+  <select id="getLaws" resultMap="lawMap">
+    -- 规范用语表
+    SELECT * FROM t_standard_word_tf
+    WHERE IS_HISTORY = '0'
+    AND WORD_TYPE = '1'
+    AND NAME_ID = #{specialtyId}
+    AND ORG_CODE = '40083437-0'
+    AND TYPE_ID = #{typeId}
+    ORDER BY SORT_ID
+  </select>
+
+</mapper>

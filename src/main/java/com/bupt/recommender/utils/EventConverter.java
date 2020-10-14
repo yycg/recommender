@@ -1,4 +1,4 @@
-package com.bupt.recommender.utls;
+package com.bupt.recommender.utils;
 
 import com.bupt.recommender.dto.EventDTO;
 import com.bupt.recommender.entity.EventPO;

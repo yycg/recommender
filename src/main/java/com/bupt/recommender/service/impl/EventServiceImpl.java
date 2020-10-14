@@ -5,7 +5,7 @@ import com.bupt.recommender.entity.UserPO;
 import com.bupt.recommender.mapper.EventMapper;
 import com.bupt.recommender.mapper.UserMapper;
 import com.bupt.recommender.service.EventService;
-import com.bupt.recommender.utls.EventConverter;
+import com.bupt.recommender.utils.EventConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
