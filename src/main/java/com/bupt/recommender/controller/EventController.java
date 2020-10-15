@@ -61,7 +61,7 @@ public class EventController {
         }
     }
 
-    @RequestMapping(path="/event/{id}", method= RequestMethod.GET)
+    @RequestMapping(path="/event/{id}", method=RequestMethod.GET)
     public ResultBean<EventVO> getEventDetail(@PathVariable(name="id", required=true) Integer id) {
         logger.info("getEventDetail: id {}", id);
         try {
@@ -70,6 +70,46 @@ public class EventController {
             return new ResultBean<>(eventVO);
         } catch (Exception e) {
             logger.warn("getEventDetail exception: id {}", id, e);
+            return new ResultBean<>(e);
+        }
+    }
+
+    @RequestMapping(path="/event/search", method=RequestMethod.GET)
+    public ResultBean<EventsVO> searchEvents(
+            @PathVariable(name="keyword", required=true) String keyword,
+            @RequestParam(value="start", required=true) int start,
+            @RequestParam(value="count", required=true) int count) {
+        logger.info("searchEvent: keyword {}", keyword);
+        try {
+            List<EventDTO> eventDTOs = eventService.getPopularEvents();
+            EventsVO eventsVO = new EventsVO();
+            eventsVO.setEventDTOs(eventDTOs.subList(start, start+count));
+            eventsVO.setStart(start);
+            eventsVO.setCount(count);
+            eventsVO.setTotal(eventDTOs.size());
+            return new ResultBean<>(eventsVO);
+        } catch (Exception e) {
+            logger.warn("searchEvent exception: keyword {}", keyword, e);
+            return new ResultBean<>(e);
+        }
+    }
+
+    @RequestMapping(path="/event/recommend", method=RequestMethod.GET)
+    public ResultBean<EventsVO> recommendEvents(
+            @PathVariable(name="algorithm", required=true) String algorithm,
+            @RequestParam(value="start", required=true) int start,
+            @RequestParam(value="count", required=true) int count) {
+        logger.info("recommendEvents: algorithm {}", algorithm);
+        try {
+            List<EventDTO> eventDTOs = eventService.getPopularEvents();
+            EventsVO eventsVO = new EventsVO();
+            eventsVO.setEventDTOs(eventDTOs.subList(start, start+count));
+            eventsVO.setStart(start);
+            eventsVO.setCount(count);
+            eventsVO.setTotal(eventDTOs.size());
+            return new ResultBean<>(eventsVO);
+        } catch (Exception e) {
+            logger.warn("recommendEvents exception: keyword {}", algorithm, e);
             return new ResultBean<>(e);
         }
     }
