@@ -17,14 +17,17 @@ public class LawServiceImpl implements LawService {
     @Autowired
     private LawMapper lawMapper;
 
+    @Override
     public List<LawSpecialtyPO> getLawSpecialties() throws Exception {
         return lawMapper.getLawSpecialties();
     }
 
+    @Override
     public List<LawTypePO> getLawTypes(String specialtyId, String parentId) throws Exception {
         return lawMapper.getLawTypes(specialtyId, parentId);
     }
 
+    @Override
     public List<LawPO> getLaws(String specialtyId, String typeId) throws Exception {
         return lawMapper.getLaws(specialtyId, typeId);
     }

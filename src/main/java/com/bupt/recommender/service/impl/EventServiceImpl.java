@@ -21,10 +21,12 @@ public class EventServiceImpl implements EventService {
     @Autowired
     private UserMapper userMapper;
 
+    @Override
     public List<EventDTO> getPopularEvents() throws Exception {
         return EventConverter.convertEventPOs2DTOs(eventMapper.getPopularEvents());
     }
 
+    @Override
     public List<EventDTO> getEventsByCategory(String category, String subcategory, int start, int count)
             throws Exception {
         List<EventDTO> eventDTOs = EventConverter.convertEventPOs2DTOs(
@@ -35,10 +37,12 @@ public class EventServiceImpl implements EventService {
         return eventDTOs;
     }
 
+    @Override
     public int countEventsByCategory(String category, String subcategory) throws Exception {
         return eventMapper.countEventsByCategory(category, subcategory);
     }
 
+    @Override
     public EventDTO getEventById(int id) throws Exception {
         EventDTO eventDTO = EventConverter.convertEventPO2DTO(eventMapper.getEventById(id));
         fillWithOwnerName(eventDTO);

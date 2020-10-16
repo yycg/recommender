@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bupt.recommender.mapper.MovieMapper">
+  <!-- 自定义返回结果集 -->
+  <resultMap id="movieMap" type="MoviePO">
+    <id property="id" column="id"></id>
+    <result property="title" column="title"></result>
+    <result property="originalTitle" column="original_title"></result>
+    <result property="aka" column="aka"></result>
+    <result property="rating" column="rating"></result>
+    <result property="year" column="year"></result>
+    <result property="countries" column="countries"></result>
+    <result property="genres" column="genres"></result>
+    <result property="summary" column="summary"></result>
+    <result property="ratingsCount" column="ratings_count"></result>
+    <result property="commentsCount" column="comments_count"></result>
+    <result property="reviewsCount" column="reviews_count"></result>
+    <result property="subtype" column="subtype"></result>
+  </resultMap>
+
+  <select id="getTopMovies" resultMap="movieMap">
+    select top.id, top.title, top.original_title, movie.aka, top.rating, top.year, movie.countries,top.genres,
+           movie.summary, movie.ratings_count, movie.comments_count, movie.reviews_count, movie.subtype from top
+    left join movie
+    on top.id = movie.id
+    order by rating desc
+  </select>
+
+  <select id="getMoviesByCondition" resultMap="movieMap">
+    select * from movie
+    where 1 = 1
+    <if test="yearMin != null">
+      and year >= #{yearMin}
+    </if>
+    <if test="yearMax != null">
+      and year < #{yearMax}
+    </if>
+    <if test="country != null">
+      and countries like '%#{country}%'
+    </if>
+    <if test="genre != null">
+      and genres like '%#{genre}%'
+    </if>
+    <if test="subtype != null">
+      and subtype = #{subtype}
+    </if>
+    order by rating desc
+  </select>
+
+  <select id="getMovieById" resultMap="movieMap">
+    select * from movie where id = #{id}
+  </select>
+
+</mapper>
