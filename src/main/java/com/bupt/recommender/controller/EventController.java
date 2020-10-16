@@ -76,7 +76,7 @@ public class EventController {
 
     @RequestMapping(path="/event/search", method=RequestMethod.GET)
     public ResultBean<EventsVO> searchEvents(
-            @PathVariable(name="keyword", required=true) String keyword,
+            @RequestParam(value="keyword", required=true) String keyword,
             @RequestParam(value="start", required=true) int start,
             @RequestParam(value="count", required=true) int count) {
         logger.info("searchEvent: keyword {}", keyword);
@@ -96,7 +96,7 @@ public class EventController {
 
     @RequestMapping(path="/event/recommend", method=RequestMethod.GET)
     public ResultBean<EventsVO> recommendEvents(
-            @PathVariable(name="algorithm", required=true) String algorithm,
+            @RequestParam(value="algorithm", required=true) String algorithm,
             @RequestParam(value="start", required=true) int start,
             @RequestParam(value="count", required=true) int count) {
         logger.info("recommendEvents: algorithm {}", algorithm);
