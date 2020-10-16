@@ -79,7 +79,7 @@ public class EventController {
             @RequestParam(value="keyword", required=true) String keyword,
             @RequestParam(value="start", required=true) int start,
             @RequestParam(value="count", required=true) int count) {
-        logger.info("searchEvent: keyword {}", keyword);
+        logger.info("searchEvent: keyword {}, start {}, count {}", keyword, start, count);
         try {
             List<EventDTO> eventDTOs = eventService.getPopularEvents();
             EventsVO eventsVO = new EventsVO();
@@ -89,7 +89,7 @@ public class EventController {
             eventsVO.setTotal(eventDTOs.size());
             return new ResultBean<>(eventsVO);
         } catch (Exception e) {
-            logger.warn("searchEvent exception: keyword {}", keyword, e);
+            logger.warn("searchEvent exception: keyword {}, start {}, count {}", keyword, start, count, e);
             return new ResultBean<>(e);
         }
     }
