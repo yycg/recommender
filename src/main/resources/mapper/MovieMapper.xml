@@ -30,10 +30,10 @@
     select * from movie
     where 1 = 1
     <if test="yearMin != null">
-      and year >= #{yearMin}
+      and year &gt;= #{yearMin}
     </if>
     <if test="yearMax != null">
-      and year < #{yearMax}
+      and year &lt; #{yearMax}
     </if>
     <if test="country != null">
       and countries like '%#{country}%'
