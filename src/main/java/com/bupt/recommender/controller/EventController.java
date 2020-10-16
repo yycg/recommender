@@ -81,6 +81,7 @@ public class EventController {
             @RequestParam(value="count", required=true) int count) {
         logger.info("searchEvent: keyword {}, start {}, count {}", keyword, start, count);
         try {
+            // TODO implement this, return fake data temporarily
             List<EventDTO> eventDTOs = eventService.getPopularEvents();
             EventsVO eventsVO = new EventsVO();
             eventsVO.setEventDTOs(eventDTOs.subList(start, start+count));
@@ -99,8 +100,9 @@ public class EventController {
             @RequestParam(value="algorithm", required=true) String algorithm,
             @RequestParam(value="start", required=true) int start,
             @RequestParam(value="count", required=true) int count) {
-        logger.info("recommendEvents: algorithm {}", algorithm);
+        logger.info("recommendEvents: algorithm {}, start {}, count {}", algorithm, start, count);
         try {
+            // TODO implement this, return fake data temporarily
             List<EventDTO> eventDTOs = eventService.getPopularEvents();
             EventsVO eventsVO = new EventsVO();
             eventsVO.setEventDTOs(eventDTOs.subList(start, start+count));
@@ -109,7 +111,7 @@ public class EventController {
             eventsVO.setTotal(eventDTOs.size());
             return new ResultBean<>(eventsVO);
         } catch (Exception e) {
-            logger.warn("recommendEvents exception: keyword {}", algorithm, e);
+            logger.warn("recommendEvents exception: keyword {}, start {}, count {}", algorithm, start, count, e);
             return new ResultBean<>(e);
         }
     }
