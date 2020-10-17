@@ -24,9 +24,10 @@
     left join movie
     on top.id = movie.id
     order by rating desc
+    limit #{count} offset #{start}
   </select>
 
-  <select id="getMoviesByCondition" resultMap="movieMap">
+  <select id="getMoviesByConditions" resultMap="movieMap">
     select * from movie
     where 1 = 1
     <if test="yearMin != null">
@@ -45,6 +46,27 @@
       and subtype = #{subtype}
     </if>
     order by rating desc
+    limit #{count} offset #{start}
+  </select>
+
+  <select id="countMoviesByConditions" resultType="int">
+    select count(1) from movie
+    where 1 = 1
+    <if test="yearMin != null">
+      and year &gt;= #{yearMin}
+    </if>
+    <if test="yearMax != null">
+      and year &lt; #{yearMax}
+    </if>
+    <if test="country != null">
+      and countries like '%#{country}%'
+    </if>
+    <if test="genre != null">
+      and genres like '%#{genre}%'
+    </if>
+    <if test="subtype != null">
+      and subtype = #{subtype}
+    </if>
   </select>
 
   <select id="getMovieById" resultMap="movieMap">

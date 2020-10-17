@@ -16,14 +16,20 @@ public class MovieServiceImpl implements MovieService {
     MovieMapper movieMapper;
 
     @Override
-    public List<MoviePO> getTopMovies() throws Exception {
-        return movieMapper.getTopMovies();
+    public List<MoviePO> getTopMovies(int start, int count) throws Exception {
+        return movieMapper.getTopMovies(start, count);
     }
 
     @Override
-    public List<MoviePO> getMoviesByCondition(Integer yearMin, Integer yearMax, String country, String genre,
-                                              String subtype) throws Exception {
-        return movieMapper.getMoviesByCondition(yearMin, yearMax, country, genre, subtype);
+    public List<MoviePO> getMoviesByConditions(Integer yearMin, Integer yearMax, String country, String genre,
+                                               String subtype, int start, int count) throws Exception {
+        return movieMapper.getMoviesByConditions(yearMin, yearMax, country, genre, subtype, start, count);
+    }
+
+    @Override
+    public int countMoviesByConditions(Integer yearMin, Integer yearMax, String country, String genre, String subtype)
+            throws Exception {
+        return movieMapper.countMoviesByConditions(yearMin, yearMax, country, genre, subtype);
     }
 
     @Override
