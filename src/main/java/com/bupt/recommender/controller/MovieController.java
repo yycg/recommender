@@ -47,24 +47,43 @@ public class MovieController {
         try {
             Integer yearMin = null;
             Integer yearMax = null;
-            switch (year) {
-                case "---": {
-                    break;
+            if (year != null) {
+                switch (year) {
+                    case "---": {
+                        break;
+                    }
+                    case "更早": {
+                        yearMax = 1960;
+                        break;
+                    }
+                    default: {
+                        yearMin = Integer.parseInt(year.substring(0, year.length() - 1));
+                        yearMax = yearMin + 10;
+                    }
                 }
-                case "更早": {
-                    yearMax = 1960;
-                    break;
-                }
-                default: {
-                    yearMin = Integer.parseInt(year.substring(0, year.length()-1));
-                    yearMax = yearMin + 10;
+            }
+
+            String subtypeEng = null;
+            if (subtype != null) {
+                switch (subtype) {
+                    case "电影": {
+                        subtypeEng = "movie";
+                        break;
+                    }
+                    case "电视": {
+                        subtypeEng = "tv";
+                        break;
+                    }
+                    default: {
+                        break;
+                    }
                 }
             }
 
             MoviesVO moviesVO = new MoviesVO();
             moviesVO.setMoviePOs(movieService.getMoviesByConditions(yearMin, yearMax,
                     "---".equals(country)? null: country, "---".equals(genre)? null: genre,
-                    "---".equals(subtype)? null: subtype, start, count));
+                    subtypeEng, start, count));
             moviesVO.setStart(start);
             moviesVO.setCount(count);
             moviesVO.setTotal(movieService.countMoviesByConditions(yearMin, yearMax,
