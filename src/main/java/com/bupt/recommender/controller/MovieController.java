@@ -87,8 +87,7 @@ public class MovieController {
             moviesVO.setStart(start);
             moviesVO.setCount(count);
             moviesVO.setTotal(movieService.countMoviesByConditions(yearMin, yearMax,
-                    "---".equals(country)? null: country, "---".equals(genre)? null: genre,
-                    "---".equals(subtype)? null: subtype));
+                    "---".equals(country)? null: country, "---".equals(genre)? null: genre, subtypeEng));
             return new ResultBean<>(moviesVO);
         } catch (Exception e) {
             logger.warn("getMoviesByConditions exception: year {}, country {}, genre {}, subtype {}, " +
