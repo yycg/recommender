@@ -37,10 +37,10 @@
       and year &lt; #{yearMax}
     </if>
     <if test="country != null">
-      and countries like '%#{country}%'
+      and countries like concat('%', #{country}, '%')
     </if>
     <if test="genre != null">
-      and genres like '%#{genre}%'
+      and genres like concat('%', #{genre}, '%')
     </if>
     <if test="subtype != null">
       and subtype = #{subtype}
@@ -59,10 +59,10 @@
       and year &lt; #{yearMax}
     </if>
     <if test="country != null">
-      and countries like '%#{country}%'
+      and countries like concat('%', #{country}, '%')
     </if>
     <if test="genre != null">
-      and genres like '%#{genre}%'
+      and genres like concat('%', #{genre}, '%')
     </if>
     <if test="subtype != null">
       and subtype = #{subtype}
