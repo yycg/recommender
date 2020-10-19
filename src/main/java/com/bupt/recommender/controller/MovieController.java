@@ -95,4 +95,44 @@ public class MovieController {
             return new ResultBean<>(e);
         }
     }
+
+    @RequestMapping(path="/movie/search", method=RequestMethod.GET)
+    public ResultBean<MoviesVO> searchMovies(
+            @RequestParam(value="keyword", required=true) String keyword,
+            @RequestParam(value="start", required=true) int start,
+            @RequestParam(value="count", required=true) int count) {
+        logger.info("searchMovies: keyword {}, start {}, count {}", keyword, start, count);
+        try {
+            // TODO implement this, return fake data temporarily
+            MoviesVO moviesVO = new MoviesVO();
+            moviesVO.setMoviePOs(movieService.getTopMovies(start, count));
+            moviesVO.setStart(start);
+            moviesVO.setCount(count);
+            moviesVO.setTotal(250);
+            return new ResultBean<>(moviesVO);
+        } catch (Exception e) {
+            logger.warn("searchMovies: keyword {}, start {}, count {}", keyword, start, count, e);
+            return new ResultBean<>(e);
+        }
+    }
+
+    @RequestMapping(path="/movie/recommend", method=RequestMethod.GET)
+    public ResultBean<MoviesVO> recommendMovies(
+            @RequestParam(value="algorithm", required=true) String algorithm,
+            @RequestParam(value="start", required=true) int start,
+            @RequestParam(value="count", required=true) int count) {
+        logger.info("searchMovies: algorithm {}, start {}, count {}", algorithm, start, count);
+        try {
+            // TODO implement this, return fake data temporarily
+            MoviesVO moviesVO = new MoviesVO();
+            moviesVO.setMoviePOs(movieService.getTopMovies(start, count));
+            moviesVO.setStart(start);
+            moviesVO.setCount(count);
+            moviesVO.setTotal(250);
+            return new ResultBean<>(moviesVO);
+        } catch (Exception e) {
+            logger.warn("searchMovies: algorithm {}, start {}, count {}", algorithm, start, count, e);
+            return new ResultBean<>(e);
+        }
+    }
 }
