@@ -119,9 +119,11 @@ public class MovieController {
     @RequestMapping(path="/movie/recommend", method=RequestMethod.GET)
     public ResultBean<MoviesVO> recommendMovies(
             @RequestParam(value="algorithm", required=true) String algorithm,
+            @RequestParam(value="movieTitles", required=true) String[] movieTitles,
             @RequestParam(value="start", required=true) int start,
             @RequestParam(value="count", required=true) int count) {
-        logger.info("recommendMovies: algorithm {}, start {}, count {}", algorithm, start, count);
+        logger.info("recommendMovies: algorithm {}, movieTitles {}, start {}, count {}",
+                algorithm, movieTitles, start, count);
         try {
             // TODO implement this, return fake data temporarily
             MoviesVO moviesVO = new MoviesVO();
