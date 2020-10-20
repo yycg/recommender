@@ -50,7 +50,7 @@ public class LawController {
     @RequestMapping(path="/law/recommend", method=RequestMethod.POST)
     public ResultBean<LawsRespVO> recommendLaws(
             @RequestParam(value="algorithm", required=true) String algorithm,
-            @RequestParam(value="lawTitles", required=true) String[] lawTitles,
+            @RequestParam(value="lawTitles", required=false) String[] lawTitles,
             @RequestParam(value="start", required=true) int start,
             @RequestParam(value="count", required=true) int count) {
         logger.info("recommendLaws: algorithm {}, lawTitles {}, start {}, count {}",
@@ -59,7 +59,7 @@ public class LawController {
             // TODO implement this, return fake data temporarily
             LawsRespVO lawsRespVO = new LawsRespVO();
             List<LawPO> lawPOs = lawService.searchLaws("卫生");
-            lawsRespVO.setLawPOs(lawPOs.subList(start, start+count));
+            lawsRespVO.setLawPOs(lawPOs.subList(start, Math.min(start+count, lawPOs.size())));
             lawsRespVO.setStart(start);
             lawsRespVO.setCount(count);
             lawsRespVO.setTotal(lawPOs.size());
