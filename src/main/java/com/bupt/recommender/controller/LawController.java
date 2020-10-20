@@ -36,7 +36,7 @@ public class LawController {
             // TODO implement this, return fake data temporarily
             LawsRespVO lawsRespVO = new LawsRespVO();
             List<LawPO> lawPOs = lawService.searchLaws(keyword);
-            lawsRespVO.setLawPOs(lawPOs.subList(start, start+count));
+            lawsRespVO.setLawPOs(lawPOs.subList(start, Math.min(start+count, lawPOs.size())));
             lawsRespVO.setStart(start);
             lawsRespVO.setCount(count);
             lawsRespVO.setTotal(lawPOs.size());
