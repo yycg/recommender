@@ -31,4 +31,9 @@ public class LawServiceImpl implements LawService {
     public List<LawPO> getLaws(String specialtyId, String typeId) throws Exception {
         return lawMapper.getLaws(specialtyId, typeId);
     }
+
+    @Override
+    public List<LawPO> searchLaws(String keyword) throws Exception {
+        return lawMapper.searchLaws(keyword);
+    }
 }

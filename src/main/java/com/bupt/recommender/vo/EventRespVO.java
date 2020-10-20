@@ -4,6 +4,6 @@ import com.bupt.recommender.dto.EventDTO;
 import lombok.Data;
 
 @Data
-public class EventVO {
-    EventDTO eventDTO;
+public class EventRespVO {
+    private EventDTO eventDTO;
 }

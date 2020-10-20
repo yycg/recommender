@@ -6,12 +6,12 @@ import java.util.Date;
 
 @Data
 public class LawSpecialtyPO {
-    String id;
-    String name;
-    Byte state;
-    String specialtyCode;
-    Date createTime;
-    String orgCode;
-    Byte type;
-    Byte isXZXK;
+    private String id;
+    private String name;
+    private Byte state;
+    private String specialtyCode;
+    private Date createTime;
+    private String orgCode;
+    private Byte type;
+    private Byte isXZXK;
 }

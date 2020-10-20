@@ -4,14 +4,14 @@ import lombok.Data;
 
 @Data
 public class LawTypePO {
-    String id;
-    Integer level;
-    String name;
-    String parentId;
-    Boolean isBottom;
-    Boolean isHistory;
-    String nameId;
-    Integer sortId;
-    String orgCode;
-    Byte wordType;
+    private String id;
+    private Integer level;
+    private String name;
+    private String parentId;
+    private Boolean isBottom;
+    private Boolean isHistory;
+    private String nameId;
+    private Integer sortId;
+    private String orgCode;
+    private Byte wordType;
 }

@@ -4,25 +4,25 @@ import lombok.Data;
 
 @Data
 public class LawPO {
-    String id;
-    String checkContent;
-    String illegalActivities;
-    String superviseMessage;
-    String accord;
-    String disposalAccord;
-    String disposalContent;
-    String reportIllegalActivities;
-    String operateTime;
-    String userId;
-    Boolean isHistory;
-    String typeId;
-    String nameId;
-    String code;
-    Integer sortId;
-    String orgCode;
-    Byte wordType;
-    String supCompType;
-    String infcontId;
-    String checkCode;
-    String countryWordCode;
+    private String id;
+    private String checkContent;
+    private String illegalActivities;
+    private String superviseMessage;
+    private String accord;
+    private String disposalAccord;
+    private String disposalContent;
+    private String reportIllegalActivities;
+    private String operateTime;
+    private String userId;
+    private Boolean isHistory;
+    private String typeId;
+    private String nameId;
+    private String code;
+    private Integer sortId;
+    private String orgCode;
+    private Byte wordType;
+    private String supCompType;
+    private String infcontId;
+    private String checkCode;
+    private String countryWordCode;
 }

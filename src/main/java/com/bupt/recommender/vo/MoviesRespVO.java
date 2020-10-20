@@ -1,18 +1,17 @@
 package com.bupt.recommender.vo;
 
-import com.bupt.recommender.dto.EventDTO;
+import com.bupt.recommender.entity.MoviePO;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class EventsVO {
-    private List<EventDTO> eventDTOs;
+public class MoviesRespVO {
+    private List<MoviePO> moviePOs;
 
     private Integer total;
 
     private Integer start;
 
     private Integer count;
-
 }

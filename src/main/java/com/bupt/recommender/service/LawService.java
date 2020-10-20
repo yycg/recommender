@@ -12,4 +12,7 @@ public interface LawService {
     List<LawTypePO> getLawTypes(String specialtyId, String parentId) throws Exception;
 
     List<LawPO> getLaws(String specialtyId, String typeId) throws Exception;
+
+    List<LawPO> searchLaws(String keyword) throws Exception;
+
 }
