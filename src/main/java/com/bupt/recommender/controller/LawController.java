@@ -71,6 +71,27 @@ public class LawController {
         }
     }
 
+    @RequestMapping(path="/law/personalRecommend", method=RequestMethod.POST)
+    public ResultBean<LawsRespVO> personalRecommendLaws(
+            @RequestParam(value="userId", required=true) String userId,
+            @RequestParam(value="start", required=true) int start,
+            @RequestParam(value="count", required=true) int count) {
+        logger.info("personalRecommendLaws: userId {}, start {}, count {}", userId, start, count);
+        try {
+            // TODO implement this, return fake data temporarily
+            LawsRespVO lawsRespVO = new LawsRespVO();
+            List<LawPO> lawPOs = lawService.searchLaws("卫生");
+            lawsRespVO.setLawPOs(lawPOs.subList(start, Math.min(start+count, lawPOs.size())));
+            lawsRespVO.setStart(start);
+            lawsRespVO.setCount(count);
+            lawsRespVO.setTotal(lawPOs.size());
+            return new ResultBean<>(lawsRespVO);
+        } catch (Exception e) {
+            logger.warn("personalRecommendLaws: userId {}, start {}, count {}", userId, start, count, e);
+            return new ResultBean<>(e);
+        }
+    }
+
     @RequestMapping(path="/law/display", method=RequestMethod.GET)
     public ResultBean<List<LawTreeNodeRespVO>> displayLawTree() {
         logger.info("displayLawTree");
