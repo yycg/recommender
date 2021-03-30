@@ -13,7 +13,7 @@ import java.util.List;
 @Transactional
 public class MovieServiceImpl implements MovieService {
     @Autowired
-    MovieMapper movieMapper;
+    private MovieMapper movieMapper;
 
     @Override
     public List<MoviePO> getTopMovies(int start, int count) throws Exception {

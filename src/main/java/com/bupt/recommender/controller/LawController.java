@@ -80,7 +80,7 @@ public class LawController {
         try {
             // TODO implement this, return fake data temporarily
             LawsRespVO lawsRespVO = new LawsRespVO();
-            List<LawPO> lawPOs = lawService.searchLaws("卫生");
+            List<LawPO> lawPOs = lawService.searchLaws("涂改");
             lawsRespVO.setLawPOs(lawPOs.subList(start, Math.min(start+count, lawPOs.size())));
             lawsRespVO.setStart(start);
             lawsRespVO.setCount(count);
