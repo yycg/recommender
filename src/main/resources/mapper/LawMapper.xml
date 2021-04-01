@@ -91,4 +91,13 @@
     ORDER BY NAME_ID, TYPE_ID, SORT_ID
   </select>
 
+  <select id="getLawById" resultMap="lawMap">
+    -- 规范用语表
+    SELECT * FROM t_standard_word_tf
+    WHERE IS_HISTORY = '0'
+      AND WORD_TYPE = '1'
+      AND ORG_CODE = '40083437-0'
+      AND ID = #{id}
+  </select>
+
 </mapper>

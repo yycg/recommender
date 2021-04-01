@@ -5,16 +5,16 @@ import com.bupt.recommender.entity.LawPO;
 import com.bupt.recommender.entity.LawSpecialtyPO;
 import com.bupt.recommender.entity.LawTypePO;
 import com.bupt.recommender.service.LawService;
+import com.bupt.recommender.utils.LawConverter;
+import com.bupt.recommender.vo.EventRespVO;
+import com.bupt.recommender.vo.LawRespVO;
 import com.bupt.recommender.vo.LawTreeNodeRespVO;
 import com.bupt.recommender.vo.LawsRespVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,6 +99,21 @@ public class LawController {
             return new ResultBean<>(lawSpecialtyDFS());
         } catch (Exception e) {
             logger.warn("displayLawTree exception", e);
+            return new ResultBean<>(e);
+        }
+    }
+
+    @RequestMapping(path="/law/{id}", method=RequestMethod.GET)
+    public ResultBean<LawRespVO> getLawDetail(@PathVariable(name="id", required=true) String id) {
+        logger.info("getLawDetail: id {}", id);
+        try {
+            LawRespVO lawRespVO = new LawRespVO();
+            LawPO lawPO = lawService.getLawById(id);
+            LawConverter.regularReplace(lawPO);
+            lawRespVO.setLawPO(lawPO);
+            return new ResultBean<>(lawRespVO);
+        } catch (Exception e) {
+            logger.warn("getLawDetail exception: id {}", id, e);
             return new ResultBean<>(e);
         }
     }

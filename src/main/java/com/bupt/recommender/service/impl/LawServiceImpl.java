@@ -5,6 +5,7 @@ import com.bupt.recommender.entity.LawSpecialtyPO;
 import com.bupt.recommender.entity.LawTypePO;
 import com.bupt.recommender.mapper.LawMapper;
 import com.bupt.recommender.service.LawService;
+import com.bupt.recommender.utils.LawConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,13 @@ public class LawServiceImpl implements LawService {
 
     @Override
     public List<LawPO> searchLaws(String keyword) throws Exception {
-        return lawMapper.searchLaws(keyword);
+        List<LawPO> lawPOs = lawMapper.searchLaws(keyword);
+        LawConverter.regularReplace(lawPOs);
+        return lawPOs;
+    }
+
+    @Override
+    public LawPO getLawById(String id) throws Exception {
+        return lawMapper.getLawById(id);
     }
 }

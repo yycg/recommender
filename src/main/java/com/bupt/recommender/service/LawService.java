@@ -15,4 +15,6 @@ public interface LawService {
 
     List<LawPO> searchLaws(String keyword) throws Exception;
 
+    LawPO getLawById(String id) throws Exception;
+
 }
