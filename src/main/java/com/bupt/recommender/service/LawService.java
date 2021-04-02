@@ -1,5 +1,6 @@
 package com.bupt.recommender.service;
 
+import com.bupt.recommender.dto.LawCaseDTO;
 import com.bupt.recommender.entity.LawPO;
 import com.bupt.recommender.entity.LawSpecialtyPO;
 import com.bupt.recommender.entity.LawTypePO;
@@ -17,4 +18,7 @@ public interface LawService {
 
     LawPO getLawById(String id) throws Exception;
 
+    List<LawCaseDTO> getRelatedCasesOfLaw(String id) throws Exception;
+
+    List<LawPO> getLawsOfRelatedCases(String id) throws Exception;
 }

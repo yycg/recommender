@@ -1,15 +1,13 @@
 package com.bupt.recommender.controller;
 
 import com.bupt.recommender.common.ResultBean;
+import com.bupt.recommender.dto.LawCaseDTO;
 import com.bupt.recommender.entity.LawPO;
 import com.bupt.recommender.entity.LawSpecialtyPO;
 import com.bupt.recommender.entity.LawTypePO;
 import com.bupt.recommender.service.LawService;
 import com.bupt.recommender.utils.LawConverter;
-import com.bupt.recommender.vo.EventRespVO;
-import com.bupt.recommender.vo.LawRespVO;
-import com.bupt.recommender.vo.LawTreeNodeRespVO;
-import com.bupt.recommender.vo.LawsRespVO;
+import com.bupt.recommender.vo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,6 +112,37 @@ public class LawController {
             return new ResultBean<>(lawRespVO);
         } catch (Exception e) {
             logger.warn("getLawDetail exception: id {}", id, e);
+            return new ResultBean<>(e);
+        }
+    }
+
+    @RequestMapping(path="/law/relatedCases/{id}", method=RequestMethod.GET)
+    public ResultBean<LawCasesRespVO> getRelatedCasesOfLaw(@PathVariable(name="id", required=true) String id) {
+        logger.info("getRelatedCasesOfLaw: id {}", id);
+        try {
+            LawCasesRespVO lawCasesRespVO = new LawCasesRespVO();
+            List<LawCaseDTO> lawCaseDTOs = lawService.getRelatedCasesOfLaw(id);
+            lawCasesRespVO.setLawCaseDTOs(lawCaseDTOs);
+            return new ResultBean<>(lawCasesRespVO);
+        } catch (Exception e) {
+            logger.warn("getRelatedCasesOfLaw exception: id {}", id, e);
+            return new ResultBean<>(e);
+        }
+    }
+
+    @RequestMapping(path="/law/lawsOfRelatedCases/{id}", method=RequestMethod.GET)
+    public ResultBean<LawsRespVO> getLawsOfRelatedCases(@PathVariable(name="id", required=true) String id) {
+        logger.info("getLawsOfRelatedCases: id {}", id);
+        try {
+            LawsRespVO lawsRespVO = new LawsRespVO();
+            List<LawPO> lawPOLists = lawService.getLawsOfRelatedCases(id);
+            lawsRespVO.setLawPOs(lawPOLists);
+            lawsRespVO.setCount(lawPOLists.size());
+            lawsRespVO.setStart(0);
+            lawsRespVO.setTotal(lawPOLists.size());
+            return new ResultBean<>(lawsRespVO);
+        } catch (Exception e) {
+            logger.warn("getLawsOfRelatedCases exception: id {}", id, e);
             return new ResultBean<>(e);
         }
     }
