@@ -21,4 +21,8 @@ public interface LawService {
     List<LawCaseDTO> getRelatedCasesOfLaw(String id) throws Exception;
 
     List<LawPO> getLawsOfRelatedCases(String id) throws Exception;
+
+    List<LawPO> getLawsBySpecialtyId(String specialtyId, int start, int count) throws Exception;
+
+    int countLawsBySpecialtyId(String specialtyId) throws Exception;
 }

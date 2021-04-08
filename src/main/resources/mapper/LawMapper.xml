@@ -100,4 +100,24 @@
       AND ID = #{id}
   </select>
 
+  <select id="getLawsBySpecialtyId" resultMap="lawMap">
+    -- 规范用语表
+    SELECT * FROM t_standard_word_tf
+    WHERE IS_HISTORY = '0'
+      AND WORD_TYPE = '1'
+      AND NAME_ID = #{specialtyId}
+      AND ORG_CODE = '40083437-0'
+    ORDER BY TYPE_ID, SORT_ID
+    limit #{count} offset #{start}
+  </select>
+
+  <select id="countLawsBySpecialtyId" resultType="int">
+    -- 规范用语表
+    SELECT COUNT(1) FROM t_standard_word_tf
+    WHERE IS_HISTORY = '0'
+      AND WORD_TYPE = '1'
+      AND NAME_ID = #{specialtyId}
+      AND ORG_CODE = '40083437-0'
+  </select>
+
 </mapper>

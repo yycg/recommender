@@ -55,7 +55,9 @@ public class LawServiceImpl implements LawService {
 
     @Override
     public LawPO getLawById(String id) throws Exception {
-        return lawMapper.getLawById(id);
+        LawPO lawPO = lawMapper.getLawById(id);
+        LawConverter.regularReplace(lawPO);
+        return lawPO;
     }
 
     @Override
@@ -95,5 +97,17 @@ public class LawServiceImpl implements LawService {
             }
         }
         return result;
+    }
+
+    @Override
+    public List<LawPO> getLawsBySpecialtyId(String specialtyId, int start, int count) throws Exception {
+        List<LawPO> lawPOs = lawMapper.getLawsBySpecialtyId(specialtyId, start, count);
+        LawConverter.regularReplace(lawPOs);
+        return lawPOs;
+    }
+
+    @Override
+    public int countLawsBySpecialtyId(String specialtyId) throws Exception {
+        return lawMapper.countLawsBySpecialtyId(specialtyId);
     }
 }

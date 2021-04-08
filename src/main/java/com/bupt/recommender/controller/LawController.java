@@ -106,9 +106,7 @@ public class LawController {
         logger.info("getLawDetail: id {}", id);
         try {
             LawRespVO lawRespVO = new LawRespVO();
-            LawPO lawPO = lawService.getLawById(id);
-            LawConverter.regularReplace(lawPO);
-            lawRespVO.setLawPO(lawPO);
+            lawRespVO.setLawPO(lawService.getLawById(id));
             return new ResultBean<>(lawRespVO);
         } catch (Exception e) {
             logger.warn("getLawDetail exception: id {}", id, e);
@@ -143,6 +141,38 @@ public class LawController {
             return new ResultBean<>(lawsRespVO);
         } catch (Exception e) {
             logger.warn("getLawsOfRelatedCases exception: id {}", id, e);
+            return new ResultBean<>(e);
+        }
+    }
+
+    @RequestMapping(path="/law/specialty", method=RequestMethod.GET)
+    public ResultBean<LawsRespVO> getLawsBySpecialtyId(
+            @RequestParam(value="specialtyId", required=true) String specialtyId,
+            @RequestParam(value="start", required=true) int start,
+            @RequestParam(value="count", required=true) int count) {
+        logger.info("getLawsBySpecialtyId: specialtyId {}, start {}, count {}", specialtyId, start, count);
+        try {
+            LawsRespVO lawsRespVO = new LawsRespVO();
+            lawsRespVO.setLawPOs(lawService.getLawsBySpecialtyId(specialtyId, start, count));
+            lawsRespVO.setStart(start);
+            lawsRespVO.setCount(count);
+            lawsRespVO.setTotal(lawService.countLawsBySpecialtyId(specialtyId));
+            return new ResultBean<>(lawsRespVO);
+        } catch (Exception e) {
+            logger.warn("getLawsBySpecialtyId: specialtyId {}, start {}, count {}", specialtyId, start, count, e);
+            return new ResultBean<>(e);
+        }
+    }
+
+    @RequestMapping(path="/law/specialties", method=RequestMethod.GET)
+    public ResultBean<LawSpecialtiesVO> getAllSpecialties() {
+        logger.info("getSpecialties");
+        try {
+            LawSpecialtiesVO lawSpecialtiesVO = new LawSpecialtiesVO();
+            lawSpecialtiesVO.setLawSpecialtyPOs(lawService.getLawSpecialties());
+            return new ResultBean<>(lawSpecialtiesVO);
+        } catch (Exception e) {
+            logger.warn("getSpecialties", e);
             return new ResultBean<>(e);
         }
     }
