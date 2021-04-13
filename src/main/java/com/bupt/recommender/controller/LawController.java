@@ -31,13 +31,11 @@ public class LawController {
             @RequestParam(value="count", required=true) int count) {
         logger.info("searchLaws: keyword {}, start {}, count {}", keyword, start, count);
         try {
-            // TODO implement this, return fake data temporarily
             LawsRespVO lawsRespVO = new LawsRespVO();
-            List<LawPO> lawPOs = lawService.searchLaws(keyword);
-            lawsRespVO.setLawPOs(lawPOs.subList(start, Math.min(start+count, lawPOs.size())));
+            lawsRespVO.setLawPOs(lawService.searchLaws(keyword, start, count));
             lawsRespVO.setStart(start);
             lawsRespVO.setCount(count);
-            lawsRespVO.setTotal(lawPOs.size());
+            lawsRespVO.setTotal(lawService.countLawsByKeyword(keyword));
             return new ResultBean<>(lawsRespVO);
         } catch (Exception e) {
             logger.warn("searchLaws: keyword {}, start {}, count {}", keyword, start, count, e);
@@ -56,11 +54,10 @@ public class LawController {
         try {
             // TODO implement this, return fake data temporarily
             LawsRespVO lawsRespVO = new LawsRespVO();
-            List<LawPO> lawPOs = lawService.searchLaws("卫生");
-            lawsRespVO.setLawPOs(lawPOs.subList(start, Math.min(start+count, lawPOs.size())));
+            lawsRespVO.setLawPOs(lawService.searchLaws("卫生", start, count));
             lawsRespVO.setStart(start);
             lawsRespVO.setCount(count);
-            lawsRespVO.setTotal(lawPOs.size());
+            lawsRespVO.setTotal(lawService.countLawsByKeyword("卫生"));
             return new ResultBean<>(lawsRespVO);
         } catch (Exception e) {
             logger.warn("recommendLaws: algorithm {}, lawTitles {}, start {}, count {}",
@@ -78,11 +75,10 @@ public class LawController {
         try {
             // TODO implement this, return fake data temporarily
             LawsRespVO lawsRespVO = new LawsRespVO();
-            List<LawPO> lawPOs = lawService.searchLaws("涂改");
-            lawsRespVO.setLawPOs(lawPOs.subList(start, Math.min(start+count, lawPOs.size())));
+            lawsRespVO.setLawPOs(lawService.searchLaws("涂改", start, count));
             lawsRespVO.setStart(start);
             lawsRespVO.setCount(count);
-            lawsRespVO.setTotal(lawPOs.size());
+            lawsRespVO.setTotal(lawService.countLawsByKeyword("涂改"));
             return new ResultBean<>(lawsRespVO);
         } catch (Exception e) {
             logger.warn("personalRecommendLaws: userId {}, start {}, count {}", userId, start, count, e);

@@ -15,7 +15,10 @@ public interface LawMapper {
 
     List<LawPO> getLaws(@Param("specialtyId") String specialtyId, @Param("typeId") String typeId) throws Exception;
 
-    List<LawPO> searchLaws(@Param("keyword") String keyword) throws Exception;
+    List<LawPO> searchLaws(@Param("keyword") String keyword, @Param("start") int start,
+                           @Param("count") int count) throws Exception;
+
+    int countLawsByKeyword(@Param("keyword") String keyword) throws Exception;
 
     LawPO getLawById(@Param("id") String id) throws Exception;
 

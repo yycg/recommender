@@ -14,7 +14,9 @@ public interface LawService {
 
     List<LawPO> getLaws(String specialtyId, String typeId) throws Exception;
 
-    List<LawPO> searchLaws(String keyword) throws Exception;
+    List<LawPO> searchLaws(String keyword, int start, int count) throws Exception;
+
+    int countLawsByKeyword(String keyword) throws Exception;
 
     LawPO getLawById(String id) throws Exception;
 

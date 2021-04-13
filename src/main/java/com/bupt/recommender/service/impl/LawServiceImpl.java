@@ -47,10 +47,15 @@ public class LawServiceImpl implements LawService {
     }
 
     @Override
-    public List<LawPO> searchLaws(String keyword) throws Exception {
-        List<LawPO> lawPOs = lawMapper.searchLaws(keyword);
+    public List<LawPO> searchLaws(String keyword, int start, int count) throws Exception {
+        List<LawPO> lawPOs = lawMapper.searchLaws(keyword, start, count);
         LawConverter.regularReplace(lawPOs);
         return lawPOs;
+    }
+
+    @Override
+    public int countLawsByKeyword(String keyword) throws Exception {
+        return lawMapper.countLawsByKeyword(keyword);
     }
 
     @Override
