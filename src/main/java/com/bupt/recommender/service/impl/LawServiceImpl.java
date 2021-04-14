@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.bupt.recommender.common.RecommendResult;
 import com.bupt.recommender.dto.LawCaseDTO;
 import com.bupt.recommender.entity.*;
-import com.bupt.recommender.mapper.LawCaseIllegalMapper;
-import com.bupt.recommender.mapper.LawCaseMapper;
-import com.bupt.recommender.mapper.LawCasePunishedMapper;
-import com.bupt.recommender.mapper.LawMapper;
+import com.bupt.recommender.mapper.*;
 import com.bupt.recommender.service.LawService;
 import com.bupt.recommender.utils.LawConverter;
 import com.bupt.recommender.utils.RestTemplateUtils;
@@ -33,6 +30,9 @@ public class LawServiceImpl implements LawService {
 
     @Autowired
     private LawCaseIllegalMapper lawCaseIllegalMapper;
+
+    @Autowired
+    private UserLawMapper userLawMapper;
 
     @Override
     public List<LawSpecialtyPO> getLawSpecialties() throws Exception {
@@ -136,5 +136,11 @@ public class LawServiceImpl implements LawService {
             lawPOs.add(getLawById(recommendLaw));
         }
         return lawPOs;
+    }
+
+    @Override
+    public List<String> getLawIdsByUserId(Integer userId) throws Exception {
+        List<UserLawPO> userLawPOs = userLawMapper.selectByUserId(userId);
+        return userLawPOs.stream().map(UserLawPO::getLawId).collect(Collectors.toList());
     }
 }
