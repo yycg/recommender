@@ -27,4 +27,6 @@ public interface LawService {
     List<LawPO> getLawsBySpecialtyId(String specialtyId, int start, int count) throws Exception;
 
     int countLawsBySpecialtyId(String specialtyId) throws Exception;
+
+    List<LawPO> recommendLaws(String[] lawTitles, int start, int count) throws Exception;
 }

@@ -1,5 +1,7 @@
 package com.bupt.recommender.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.bupt.recommender.common.RecommendResult;
 import com.bupt.recommender.dto.LawCaseDTO;
 import com.bupt.recommender.entity.*;
 import com.bupt.recommender.mapper.LawCaseIllegalMapper;
@@ -8,6 +10,7 @@ import com.bupt.recommender.mapper.LawCasePunishedMapper;
 import com.bupt.recommender.mapper.LawMapper;
 import com.bupt.recommender.service.LawService;
 import com.bupt.recommender.utils.LawConverter;
+import com.bupt.recommender.utils.RestTemplateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -114,5 +117,24 @@ public class LawServiceImpl implements LawService {
     @Override
     public int countLawsBySpecialtyId(String specialtyId) throws Exception {
         return lawMapper.countLawsBySpecialtyId(specialtyId);
+    }
+
+    @Override
+    public List<LawPO> recommendLaws(String[] lawTitles, int start, int count) throws Exception {
+        String url = "http://0.0.0.0:5000/HAGE/recommend";
+
+        Map<String, String> params = new HashMap<>();
+        params.put("lawTitles", JSON.toJSONString(lawTitles));
+        params.put("start", Integer.toString(start));
+        params.put("count", Integer.toString(count));
+
+        //发送Post数据并返回数据
+        RecommendResult<List<String>> result = RestTemplateUtils.sendPostRequest(url, params);
+        List<String> recommendLaws = result.getResult();
+        List<LawPO> lawPOs = new ArrayList<>();
+        for (String recommendLaw : recommendLaws) {
+            lawPOs.add(getLawById(recommendLaw));
+        }
+        return lawPOs;
     }
 }

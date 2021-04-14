@@ -45,23 +45,20 @@ public class LawController {
 
     @RequestMapping(path="/law/recommend", method=RequestMethod.POST)
     public ResultBean<LawsRespVO> recommendLaws(
-            @RequestParam(value="algorithm", required=true) String algorithm,
             @RequestParam(value="lawTitles", required=false) String[] lawTitles,
             @RequestParam(value="start", required=true) int start,
             @RequestParam(value="count", required=true) int count) {
-        logger.info("recommendLaws: algorithm {}, lawTitles {}, start {}, count {}",
-                algorithm, lawTitles, start, count);
+        logger.info("recommendLaws: lawTitles {}, start {}, count {}", lawTitles, start, count);
         try {
-            // TODO implement this, return fake data temporarily
             LawsRespVO lawsRespVO = new LawsRespVO();
-            lawsRespVO.setLawPOs(lawService.searchLaws("卫生", start, count));
+            lawsRespVO.setLawPOs(lawService.recommendLaws(
+                    lawTitles == null ? new String[]{} : lawTitles, start, count));
             lawsRespVO.setStart(start);
             lawsRespVO.setCount(count);
-            lawsRespVO.setTotal(lawService.countLawsByKeyword("卫生"));
+            lawsRespVO.setTotal(100);
             return new ResultBean<>(lawsRespVO);
         } catch (Exception e) {
-            logger.warn("recommendLaws: algorithm {}, lawTitles {}, start {}, count {}",
-                    algorithm, lawTitles, start, count, e);
+            logger.warn("recommendLaws: lawTitles {}, start {}, count {}", lawTitles, start, count, e);
             return new ResultBean<>(e);
         }
     }
