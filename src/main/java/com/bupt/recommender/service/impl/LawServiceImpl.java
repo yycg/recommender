@@ -98,10 +98,12 @@ public class LawServiceImpl implements LawService {
             for (LawCaseIllegalPO l : lawCaseIllegalPOsSharingCase) {
                 String lawId = l.getStandardId();
                 LawPO lawPO = lawMapper.getLawById(lawId);
-                if (!lawIds.contains(lawPO.getId())) {
-                    result.add(lawPO);
+                if (lawPO != null) {
+                    if (!lawIds.contains(lawPO.getId())) {
+                        result.add(lawPO);
+                    }
+                    lawIds.add(lawPO.getId());
                 }
-                lawIds.add(lawPO.getId());
             }
         }
         return result;
