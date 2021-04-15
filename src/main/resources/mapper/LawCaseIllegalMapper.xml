@@ -91,6 +91,8 @@
     ILL_ID, FACT_DESC, FACT_VALUE, OPINION, OPINION_VALUE
     from t_discipline_illegal2_tf
     where STANDARD_ID = #{lawId,jdbcType=VARCHAR}
+    <!-- 防止返回案例数目过多 -->
+    limit 10
   </select>
   <select id="selectByCaseId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     <!--

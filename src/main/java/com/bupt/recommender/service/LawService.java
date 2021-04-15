@@ -31,4 +31,6 @@ public interface LawService {
     List<LawPO> recommendLaws(String[] lawTitles, int start, int count) throws Exception;
 
     List<String> getLawIdsByUserId(Integer userId) throws Exception;
+
+    int insertUserLaw(int userId, String lawId) throws Exception;
 }

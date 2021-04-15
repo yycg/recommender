@@ -10,6 +10,10 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -58,5 +62,11 @@ public class LawConverter {
         Pattern p = Pattern.compile(regularExpression);
         Matcher m = p.matcher(input);
         return m.replaceAll(replace);
+    }
+
+    // https://blog.csdn.net/u012410733/article/details/113748672
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Map<Object,Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 }

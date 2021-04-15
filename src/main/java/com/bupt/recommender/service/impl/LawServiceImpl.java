@@ -14,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -91,7 +94,6 @@ public class LawServiceImpl implements LawService {
         }
 
         List<LawPO> result = new ArrayList<>();
-        Set<String> lawIds = new HashSet<>();
         for (LawCaseIllegalPO lawCaseIllegalPO : lawCaseIllegalPOs) {
             String caseId = lawCaseIllegalPO.getDisId();
             List<LawCaseIllegalPO> lawCaseIllegalPOsSharingCase = lawCaseIllegalMapper.selectByCaseId(caseId);
@@ -99,14 +101,11 @@ public class LawServiceImpl implements LawService {
                 String lawId = l.getStandardId();
                 LawPO lawPO = lawMapper.getLawById(lawId);
                 if (lawPO != null) {
-                    if (!lawIds.contains(lawPO.getId())) {
-                        result.add(lawPO);
-                    }
-                    lawIds.add(lawPO.getId());
+                    result.add(lawPO);
                 }
             }
         }
-        return result;
+        return result.stream().filter(LawConverter.distinctByKey(LawPO::getId)).collect(Collectors.toList());
     }
 
     @Override
@@ -143,6 +142,14 @@ public class LawServiceImpl implements LawService {
     @Override
     public List<String> getLawIdsByUserId(Integer userId) throws Exception {
         List<UserLawPO> userLawPOs = userLawMapper.selectByUserId(userId);
-        return userLawPOs.stream().map(UserLawPO::getLawId).collect(Collectors.toList());
+        return userLawPOs.stream().map(UserLawPO::getLawId).distinct().collect(Collectors.toList());
+    }
+
+    @Override
+    public int insertUserLaw(int userId, String lawId) throws Exception {
+        UserLawPO record = new UserLawPO();
+        record.setUserId(userId);
+        record.setLawId(lawId);
+        return userLawMapper.insert(record);
     }
 }
