@@ -14,9 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -105,7 +102,10 @@ public class LawServiceImpl implements LawService {
                 }
             }
         }
-        return result.stream().filter(LawConverter.distinctByKey(LawPO::getId)).collect(Collectors.toList());
+        List<LawPO> lawPOs = result.stream().
+                filter(LawConverter.distinctByKey(LawPO::getId)).collect(Collectors.toList());
+        LawConverter.regularReplace(lawPOs);
+        return lawPOs;
     }
 
     @Override
@@ -136,6 +136,7 @@ public class LawServiceImpl implements LawService {
         for (String recommendLaw : recommendLaws) {
             lawPOs.add(getLawById(recommendLaw));
         }
+        LawConverter.regularReplace(lawPOs);
         return lawPOs;
     }
 
